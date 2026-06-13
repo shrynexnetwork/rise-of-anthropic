@@ -36,133 +36,91 @@ imp note: when you are done scripting run an agent to verify everything in the s
 
 why do the audio chunking, well here is the thing. In a good video the video should be in sync with the audio, by chunking the sript into small sentences that during the duration of the chunk of the audiofile we are talking and visualising about that chunk only.
 
-## CRITICAL — REMOTION v4 FREEZE BUG
+## BIG WARNING — REMOTION'S FREEZE IS BROKEN
 
-`<Freeze>` does NOT work in Remotion v4. It captures the frame at the top level but child components calling `useCurrentFrame()` still see the real clock frame, not the frozen one. This means elements will be invisible (stuck at opacity 0, pre-animation). NEVER use `Freeze`. Instead, add a `forcedFrame?: number` prop to SceneRenderer and pass it down directly:
+Remotion's Freeze feature does NOT work properly. When you use it, the background appears but everything else (text, logos, animations) stays invisible because they think its still frame zero. NEVER use Freeze. Instead, we pass a fixed frame number directly to each scene so all elements render correctly for thumbnails or stills.
 
-```tsx
-const currentFrame = useCurrentFrame();
-const frame = forcedFrame ?? currentFrame;
-```
+## HOW TO CHECK IF THE VIDEO LOOKS GOOD (since you cant render locally)
 
-This approach guarantees all children render at the same frozen frame for still/snapshot rendering.
+The local machine is too weak to render the full video. So heres how you check your work:
 
-## VISUAL DEBUGGING WITH SCENE STILLS
+1. Create a temporary checker tool that renders each scene one by one as a still image at frame 60. Frame 60 is used because by then all animations have finished settling.
+2. Run this command to generate all scene images: `npx remotion render src/Root.tsx SceneCapture out/capture --sequence`
+3. Rename the output files from element-01.jpeg to s01.jpeg etc so they are easy to identify
+4. Open each image in your browser and look closely at:
+   - Are things overlapping?
+   - Are fonts big enough?
+   - Are the logo sizes right?
+   - Colors clashing?
+   - Anything not sitting right?
+5. If something is off, fix the scene config file and re-render
+6. Once everything looks good, DELETE the temporary checker files before pushing
 
-Since the local machine cannot render full videos, use SceneCapture — a dedicated composition that maps each scene chunk to a frame index and renders it at `forcedFrame={60}`:
+## WHAT EACH SCENE NEEDS TO HAVE
 
-1. Create `SceneCapture.tsx` that iterates `scriptChunks` and renders each with `<SceneRenderer forcedFrame={60} />`
-2. Register it in `Main.tsx` with `durationInFrames={scriptChunks.length}`
-3. Run: `npx remotion render src/Root.tsx SceneCapture out/capture --sequence`
-4. Rename output files: `for f in element-*.jpeg; do num=$(echo "$f" | sed 's/element-0*//' | sed 's/\.jpeg//'); printf -v padded "%02d" "$num"; mv "$f" "s${padded}.jpeg"; done`
+Every single scene must have these visual treatments applied:
 
-Frame 60 is used because all spring animations settle by ~32 frames. This captures the fully settled, post-animation state of every element.
+- **Ken Burns effect** on the background — it slowly zooms in and shifts during the scene so its never a static picture
+- **Dark vignette** overlay — darkens the edges to focus attention on the center
+- **Background blur** — a soft 3px blur on background images so foreground text pops
+- **Drop shadows** on everything in front — text, logos, cards all get a shadow so they look 3D and separate from the background
+- **White background under logos** — logos that dont have white in them get a small white rounded box behind them so theyre readable
+- **Hard cuts between scenes** — no fancy transitions, just cut straight to the next scene. Only use crossfades when moving between big chapters.
 
-## STILL VERIFICATION PROTOCOL
+## LAYOUT RULES
 
-After making visual changes, always re-render stills and inspect them:
+- Positions are percentages from 0 to 100. The center of the screen is 50 on both X and Y
+- If you place multiple items in a group, make sure the group is centered. For example three cards at 24, 50, 76 are perfectly centered because (24+76)/2 = 50
+- Big logos need more space from text above them so they dont overlap
+- Font sizes and logo sizes are all multiplied by a global scale factor. If everything feels too small or too big, change the scale factor once and everything adjusts. Only tweak individual sizes for special cases.
 
-1. Re-render: `npx remotion render src/Root.tsx SceneCapture out/capture --sequence` (replaces previous)
-2. Rename as above
-3. Open in browser: `xdg-open out/capture/sNN.jpeg`
-4. Check: spacing, overlap, font sizes, logo proportions, color contrast, animation entrance states
-5. If anything is off, fix `visualConfig.ts` or `SceneRenderer.tsx` and repeat
+## COLORS TO USE
 
-## SCENE CAPTURE IS TEMPORARY — DELETE BEFORE FINAL PUSH
+- Main text: pure white
+- Highlights and emphasis: gold (#f0c040)
+- Good news or success: green (#40f0a0)
+- Information or links: blue (#4080f0)
+- Warnings or bad news: red (#f04040)
+- Secondary or subtle text: muted purple (#8888aa)
+- Background base: very dark navy (#0a0a1a)
 
-After visual inspection is complete:
-- Delete `SceneCapture.tsx`
-- Delete `SceneGrid.tsx` (if exists — broken Freeze approach)
-- Remove their imports and `<Composition>` registrations from `Main.tsx`
-- Remove the `--sequence` output directory (`out/capture/`)
-- Revert `audioAssets.ts` and `MainVideo.tsx` changes if they were only needed for capture
+## THINGS TO NEVER DO
 
-## CODE ARCHITECTURE
+- Never use Freeze — it is broken and will make your elements invisible
+- Never try to render the full video on this machine — it will crash. Use the scene image trick above instead
+- Never commit the temporary checker files or their output folder
+- Never do word-by-word subtitles. Instead flash big bold text for key phrases
+- Never put all your code in one file. Keep scenes, config, and logic separate
+- Never use emojis in the video unless specifically asked to
 
-### File Structure
-- `video/src/scenes/SceneRenderer.tsx` — Main rendering engine. Holds SCALE constant, all animation components, Ken Burns background, rendering logic.
-- `video/src/scenes/visualConfig.ts` — Per-scene configuration. Every scene's text overlays, elements, backgrounds, animation types. Single source of truth for what appears in each scene.
-- `video/src/scenes/ChunkScene.tsx` — Thin wrapper connecting a script chunk to its SceneRenderer.
-- `video/src/MainVideo.tsx` — Orchestrates all chunks as Remotion Sequences. Loads timing overrides and audio assets.
-- `video/src/Main.tsx` — Composition registration. Must list every composition used.
-- `video/src/audioAssets.ts` — Static imports of WAV files from `video/public/`. These are resolved at bundle time, not runtime.
+## HOW TO GET THE FINAL VIDEO
 
-### The SCALE Constant
-`SceneRenderer.tsx` defines a `SCALE = 1.8` that multiplies every font size, logo width, card padding, and spacing. This keeps proportions consistent while making elements large enough for YouTube. If everything is too small or too large, change SCALE — do not tweak individual values.
+Two things run on GitHub Actions:
 
-For scenes that need special treatment, override values in `visualConfig.ts` directly (e.g., a logo that needs to be extra large gets `width: 120` despite the general scale).
+**First — Generate TTS Audio:**
+- Pushes to main with script changes trigger this automatically, or you can run it manually
+- It splits your script into 4 groups and generates speech audio in parallel
+- It measures the actual length of each audio clip and creates a timing file
+- The audio files and timing file are saved as temporary downloads
 
-### visualConfig.ts Conventions
-- `x` and `y` are percentage positions (0–100). Center is x=50.
-- Text `fontSize` is the base value — it gets multiplied by SCALE at render time.
-- `delay` is in frames at 30fps. Elements with delay=0 appear immediately; staggered delays (5, 10, 15…) create the animated reveal.
-- `animation` types: `"fade"` (opacity), `"spring-up"` (slide up + spring), `"spring-scale"` (grow + spring), `"elastic-pop"` (strong overshoot).
-- Scene `sceneType` controls special components: `"chart-revenue"`, `"process-diagram"`, `"power-web"`, `"split-tension"`, `"journey"`, `"shutdown"`.
-- Logo elements get automatic white background pill if no `color` is set (handled in SceneRenderer).
+**Second — Render the Video:**
+- This runs automatically after TTS finishes, or you can run it manually
+- It grabs the audio files from the TTS step, puts them in the right place
+- It installs a browser, runs the renderer with 4x speed
+- Outputs the final mp4 and saves it as a downloadable file (stays for 90 days)
 
-### Spacing and Centering Rules
-- Groups of elements must be centered around 50%. For 3 cards at positions 24, 50, 76: center = (24+76)/2 = 50 ✓.
-- For 2 items at 68 and 86: center = (68+86)/2 = 77 — skewed right by design (left side has other content).
-- Logos with large widths need more vertical separation from adjacent text to prevent overlap.
+**When testing, do it in this order:**
+1. Make your changes and push to main
+2. Go to GitHub Actions and manually run "Generate TTS Audio"
+3. After that finishes, manually run "Render Video"
+4. Download the mp4 from the Render Video run
 
-### Required Visual Effects (Applied in SceneRenderer)
-- **Ken Burns** — Slow background scale (1 → 1.08) + translateY over scene duration via `interpolate()`.
-- **Vignette** — Dark radial gradient overlay on entire scene for depth.
-- **Background blur** — `blur(3px) brightness(0.65) saturate(1.15)` on background images to soften them (not on gradient overlays).
-- **Drop shadows** — All foreground elements get `drop-shadow(0px 10px 20px rgba(0,0,0,0.5))` for 3D separation.
-- **White logo background** — Logos without inherent white fill get a small white pill (`borderRadius: 12px`, `background: white`) behind them for readability.
-- **Hard cuts** — Between scenes (no crossfade). Crossfades only between major chapters.
+## CHECKLIST BEFORE PUSHING
 
-## Color Palette
-- Primary text: `#ffffff`
-- Accent (gold): `#f0c040`
-- Accent (green/success): `#40f0a0`
-- Accent (blue/info): `#4080f0`
-- Error/alert: `#f04040`
-- Subtle text: `#8888aa`
-- Background base: `#0a0a1a`
-
-## THINGS TO AVOID
-- Do NOT use `<Freeze>` — it's broken in Remotion v4. Use `forcedFrame` prop.
-- Do NOT render full video locally — always use SceneCapture + stills, then push to GitHub Actions for final render.
-- Do NOT commit temporary SceneCapture files or output directories.
-- Do NOT add word-by-word subtitles — use selective massive text overlays for key phrases only.
-- Do NOT put all code in one file — split into reusable components.
-- Do NOT use emojis in the video (unless explicitly requested).
-
-## CI/CD — GitHub Actions Workflows
-
-Two workflows in `.github/workflows/`:
-
-### 1. `tts-generate.yml` — Generate TTS Audio
-- Triggered on push to main (if `script.json` changes) or manually.
-- Splits script chunks into 4 groups for parallel TTS generation via `shrynetts` action.
-- Merges audio, measures actual durations with ffprobe, builds `timings.json`.
-- Uploads artifacts: `tts-audio` (WAV files) and `timing-config` (timings.json).
-
-### 2. `render-video.yml` — Render Final Video
-- Triggered manually or automatically after `tts-generate.yml` completes (`workflow_run`).
-- Downloads `tts-audio` and `timing-config` artifacts from the TTS run.
-- Places WAV files in `video/public/` (where `audioAssets.ts` imports them at bundle time).
-- Installs Chrome, runs `npx remotion render src/Root.tsx Main out/anthropic-story.mp4 --concurrency=4`.
-- Uploads final MP4 as artifact (90 day retention).
-
-When testing, use `workflow_dispatch` on both workflows in sequence: first generate TTS, then render.
-
-## Push Protocol
-1. Commit visual changes + cleanup (delete capture files)
-2. Push to main
-3. Go to GitHub Actions, manually run "Generate TTS Audio" workflow
-4. After it completes, manually run "Render Video" workflow (or wait for automatic `workflow_run` trigger)
-5. Download the rendered MP4 from the Render Video workflow artifacts
-
-## Final Checklist Before Push
-- [ ] Deleted temporary capture files (SceneCapture.tsx, SceneGrid.tsx)
-- [ ] Removed temporary compositions from Main.tsx
-- [ ] Removed dead components (CrownGlow, unused scene types)
-- [ ] Removed unused types from visualConfig.ts
-- [ ] TypeScript compiles (`npx tsc --noEmit` — pre-existing errors like timings.json schema mismatch are OK)
-- [ ] Remotion still builds (`npx remotion still src/Root.tsx Main out/verify.png`)
-- [ ] All scene stills have been visually inspected
-- [ ] No overlapping elements in any scene
-- [ ] Workflows committed and pushed
+- [ ] Delete the temporary scene checker tool files
+- [ ] Delete the output folder with all the still images
+- [ ] Remove any dead code from old experiments
+- [ ] Run a quick build check to make sure nothing is broken
+- [ ] Look at every scene image one last time
+- [ ] Make sure nothing overlaps anywhere
+- [ ] Commit the workflow files too
