@@ -1,6 +1,4 @@
-import React from "react";
+import { registerRoot } from "remotion";
 import { Main } from "./Main";
 
-export const Root: React.FC = () => {
-  return <Main />;
-};
+registerRoot(Main);
