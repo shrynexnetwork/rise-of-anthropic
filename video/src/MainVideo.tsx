@@ -3,6 +3,7 @@ import { AbsoluteFill, Sequence } from "remotion";
 import { scriptChunks, getChunkDurationFrames } from "./script";
 import { ChunkScene } from "./scenes/ChunkScene";
 import { TimingEntry } from "./types";
+import { audioFiles } from "./audioAssets";
 
 interface MainVideoProps {
   timingOverrides?: Record<string, TimingEntry>;
@@ -25,7 +26,7 @@ export const MainVideo: React.FC<MainVideoProps> = ({ timingOverrides }) => {
         <ChunkScene
           chunk={chunk}
           timing={{ chunkId: chunk.id, durationInFrames, audioFile: timing?.audioFile || "" }}
-          audioSrc={timing?.audioFile ? `${process.env.PUBLIC_URL || ""}/${timing.audioFile}` : undefined}
+          audioSrc={audioFiles[chunk.id]}
         />
       </Sequence>
     );
