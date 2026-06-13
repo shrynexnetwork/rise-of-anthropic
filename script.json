@@ -2,169 +2,169 @@
   {
     "id": "s00",
     "text": "In just five years, a startup born from a split at OpenAI became one of the most valuable companies on Earth, worth nearly one trillion dollars. This is the story of Anthropic and their incredible rise.",
-    "visual": "intro montage with company logo",
+    "visual": "Opening sequence: dark space background with stars gradually revealing the Anthropic logo (stylized 'A' with interlocking rings) in gold. Logo scales from small to large with a subtle glow effect. Below the logo, text 'THE RISE OF ANTHROPIC' fades in letter by letter. At 'nearly one trillion dollars', a counter animation shows numbers spinning up from 0 to $965B with a golden flash. Ken Burns background: slow zoom into abstract neural network visualization.",
     "approxDurationSec": 12
   },
   {
     "id": "s01",
     "text": "To understand Anthropic, we go back to twenty twenty-one. Tensions at OpenAI were boiling over. Dario Amodei, the VP of Research, and his sister Daniela, who led safety and policy, believed AI safety was being pushed aside in the race to commercialize.",
-    "visual": "openai logo with tension indicators",
+    "visual": "Split screen: left side shows OpenAI logo with crack lines appearing across it. Right side shows stylized silhouettes of Dario and Daniela Amodei with name labels. Between them, a tension meter animation rises from green to red. Background transitions from warm to cool colors. A newspaper-style headline 'OpenAI Split Deepens' slides in from top. Ken Burns background: blurred office interior with warm lighting.",
     "approxDurationSec": 12
   },
   {
     "id": "s02",
     "text": "So in January twenty twenty-one, Dario, Daniela, and seven other researchers walked out and founded Anthropic as a public benefit corporation. Their mission was radical: build incredibly powerful AI, but make safety the priority, not an afterthought.",
-    "visual": "people icons streaming out of one building into new one",
+    "visual": "Animated door with 'OpenAI' sign swinging open. Nine small glowing avatar circles stream out and travel across screen to form a circle. In the center, the Anthropic logo forms with a pulse animation. Text badge 'Public Benefit Corporation' appears below. A mission statement card slides in: 'Powerful AI. Safety First.' with checkmark. The nine avatars pulse in sequence like a heartbeat. Ken Burns background: dawn sky representing new beginning.",
     "approxDurationSec": 13
   },
   {
     "id": "s03",
     "text": "The name Anthropic comes from the anthropic principle in physics, the idea that the universe's laws seem fine-tuned for intelligent life. They believed intelligence itself needed careful stewardship.",
-    "visual": "cosmic imagery with name reveal animation",
+    "visual": "Cosmic scene: animated galaxy swirls in background with stars forming. The word 'ANTHROPIC' breaks into its root 'ANTHROPOS' (Greek for human) with an etymology branch animation. Universe imagery with planets and orbits fades in. A scale balance icon appears: one side 'Intelligence', the other 'Stewardship'. Text 'The Anthropic Principle' appears with a cosmic glow effect. Ken Burns background: Hubble telescope deep field image slowly zooming.",
     "approxDurationSec": 10
   },
   {
     "id": "s04",
     "text": "In May twenty twenty-one, just months after founding, Anthropic raised one hundred twenty-four million dollars from heavyweights like Skype co-founder Jaan Tallinn, Facebook co-founder Dustin Moskovitz, and former Google CEO Eric Schmidt.",
-    "visual": "investor logos cascading in",
+    "visual": "Investment scene: a $124M counter numbers roll up with coin stack animation. Three investor profile cards flip in one by one: (1) Jaan Tallinn with Skype logo icon, (2) Dustin Moskovitz with Facebook logo icon, (3) Eric Schmidt with Google logo icon. Each card has a brief title below. A glowing funding pipeline connects the cards to a growing Anthropic logo at center. Ken Burns background: stock market ticker pattern in dark blue.",
     "approxDurationSec": 11
   },
   {
     "id": "s05",
     "text": "They built in stealth for nearly two years, creating Claude, named after Claude Shannon, the father of information theory. In twenty twenty-two, they raised a five hundred eighty million dollar Series B. The lead investor was FTX, run by Sam Bankman-Fried. Within months, FTX collapsed in one of the biggest frauds in history.",
-    "visual": "Claude Shannon photo, FTX logo crumbling into pieces",
+    "visual": "Stealth mode visual: a curtain labeled 'STEALTH MODE 2021-2022' slides open to reveal a portrait of Claude Shannon (black and white photo style) with information theory symbols (binary tree, entropy equation) orbiting around it. Below, a Series B badge with $580M appears. FTX logo slides in from right with Sam Bankman-Fried silhouette. Then the FTX logo shatters like glass with red cracks spreading. Ken Burns background: abstract binary code pattern scrolling.",
     "approxDurationSec": 15
   },
   {
     "id": "s06",
     "text": "Anthropic had to buy back FTX's stake to free itself from the association. It was a near-death experience for the young company, but they survived and kept building.",
-    "visual": "company rising from wreckage animation",
+    "visual": "Drama scene: a tangled chain labeled 'FTX' is being pulled away from the Anthropic logo by a glowing hand. The FTX links dissolve into dust. A heartbeat monitor line dips dangerously low (near-death moment), then recovers and climbs steadily. The Anthropic logo brightens and pulses stronger. Text 'RESILIENCE' fades in with a shield icon. Ken Burns background: storm clouds parting to reveal clear sky.",
     "approxDurationSec": 9
   },
   {
     "id": "s07",
     "text": "They pioneered a breakthrough approach called Constitutional AI. Instead of having humans rate millions of responses, they gave the model a written constitution to judge itself against. The model would generate a response, critique its own output, and revise it to be more helpful, honest, and harmless.",
-    "visual": "constitution document, self-critique loop diagram with arrows",
+    "visual": "Constitutional AI diagram: A scroll document titled 'CONSTITUTION' unfurls from the top. Below it, a three-step cycle animation: (1) 'GENERATE' with an AI brain icon producing text, arrow to (2) 'CRITIQUE' with a magnifying glass examining the text, arrow to (3) 'REVISE' with a pencil editing icon, then arrow back to (1) forming a loop. Text badges: 'HELPFUL', 'HONEST', 'HARMLESS' pulse as they appear. Ken Burns background: legal document texture parchment.",
     "approxDurationSec": 15
   },
   {
     "id": "s08",
     "text": "Drawing inspiration from the UN Declaration of Human Rights and Apple's Terms of Service, it was the first time an AI company published the actual principles guiding their model's behavior.",
-    "visual": "source documents shown with highlight animation",
+    "visual": "Inspiration sources: two documents side by side fade in - left is 'UN Declaration of Human Rights' with UN emblem, right is 'Apple Terms of Service' with Apple icon. A bridge arrow connects them to a central glowing document titled 'Anthropic Constitution'. A 'FIRST OF ITS KIND' ribbon badge appears at bottom. The constitution document glows with approval checkmark. Ken Burns background: library bookshelf with warm lighting.",
     "approxDurationSec": 9
   },
   {
     "id": "s09",
     "text": "In March twenty twenty-three, Claude one finally launched with a one hundred thousand token context window and the core H-H-H principles: helpful, harmless, and honest. That same year, Amazon invested one point three billion dollars, and Google committed up to two billion. Big Tech was placing their bets on safety-first AI.",
-    "visual": "Claude 1 launch screen, Amazon and Google logos with dollar signs",
+    "visual": "Launch scene: Claude 1 product card slides in from left with specs '100K TOKENS' and 'H-H-H PRINCIPLES' listed as badges. A rocket launch animation with Claude 1 text on the rocket blasts upward. Below, two investment cards: Amazon logo with '$1.3B' and Google logo with '$2B'. A map showing Seattle (Amazon HQ) and Mountain View (Google HQ) with glowing markers. Text 'BIG TECH BET ON SAFETY' appears as a headline. Ken Burns background: launch pad at night with spotlights.",
     "approxDurationSec": 15
   },
   {
     "id": "s10",
     "text": "Claude two launched in July twenty twenty-three, doubling down on reasoning and coding. Then Claude two point one introduced tool use support and significantly reduced hallucinations.",
-    "visual": "Claude 2 launch with feature comparison",
+    "visual": "Version timeline: Claude 2 badge appears with 'JULY 2023' and features list: 'REASONING++' and 'CODING++' with upward arrows. Then Claude 2.1 badge slides in with 'TOOL USE' icon (wrench) and 'HALLUCINATIONS ↓' with a declining arrow. A simple line graph shows hallucination rate dropping. Ken Burns background: code syntax on dark screen scrolling softly.",
     "approxDurationSec": 10
   },
   {
     "id": "s11",
     "text": "The real breakthrough came March fourth, twenty twenty-four. Anthropic unveiled the Claude three family: three models in one launch. Haiku for speed, Sonnet for balance, and Opus for maximum power. Opus outperformed GPT-4 on nearly every benchmark from math to coding to image analysis.",
-    "visual": "three tier cards appearing with spring animation, benchmark chart",
+    "visual": "Big reveal: Date stamp 'MARCH 4, 2024' explodes outward. Three tier cards spring in from left to right in sequence: (1) HAIKU in green with lightning bolt icon and 'SPEED', (2) SONNET in blue with scales icon and 'BALANCE', (3) OPUS in gold with crown icon and 'POWER'. Then a benchmark chart appears with bars: Opus bar extends past GPT-4 bar on multiple metrics (MMLU, HumanEval, MATH). The Opus bar glows gold. Ken Burns background: abstract geometric pattern in dark blue.",
     "approxDurationSec": 16
   },
   {
     "id": "s12",
     "text": "The three-tier system was genius. Customers could pick the right model for each job: Haiku for real-time chat, Sonnet for daily work, and Opus for the toughest problems. It democratized access to frontier AI.",
-    "visual": "tier diagram with use case labels",
+    "visual": "Three-column layout: each column shows a use case scenario. Left column 'HAIKU' with chat bubble icons and '$0.25/M tokens' - real-time chat animation. Middle column 'SONNET' with document icons and '$3/M tokens' - daily work dashboard. Right column 'OPUS' with brain icon and '$15/M tokens' - complex problem solving with particle effects. A 'DEMOCRATIZED AI' banner stretches across bottom. Users of different skill levels icons appear at bottom. Ken Burns background: minimalist grid pattern.",
     "approxDurationSec": 11
   },
   {
     "id": "s13",
     "text": "In June twenty twenty-four, Claude three point five Sonnet shocked the industry by delivering Opus-level performance at a fraction of the cost. It became the best coding model available. Developers flocked to it. By end of twenty twenty-four, revenue had exploded from eighty-seven million to over one billion dollars.",
-    "visual": "Sonnet matching Opus performance chart, revenue graph soaring",
+    "visual": "Shockwave visual: a Sonnet badge with '3.5' pulses with a shockwave ring expanding. Comparison chart: two bars side by side - 'OPUS' with high cost indicator, 'SONNET 3.5' matching the height but with '$' cost marker significantly lower. Developer avatar icons swarm toward Sonnet like moths to light. Revenue graph: a line chart showing exponential curve from $87M to $1B+ with a glowing trail. '1,000% GROWTH' text appears. Ken Burns background: oscilloscope wave pattern in green.",
     "approxDurationSec": 16
   },
   {
     "id": "s14",
     "text": "Amazon deepened its commitment, bringing their total investment to eight billion dollars. Anthropic was no longer a startup. It was a powerhouse.",
-    "visual": "Amazon logo with 8 billion dollar badge",
+    "visual": "Amazon logo grows and multiplies like a stack of coins, each with '$1B' label until eight stack up. A 'TOTAL: $8B' total appears with a flash. Then the perspective shifts: the Anthropic logo casts a shadow that morphs into a skyscraper silhouette. Text 'POWERHOUSE' appears in bold with a power-on sound visual effect (equalizer bars). Ken Burns background: city skyline at dusk with building lights turning on.",
     "approxDurationSec": 8
   },
   {
     "id": "s15",
     "text": "February twenty twenty-five brought Claude three point seven Sonnet with extended thinking, showing its chain-of-thought reasoning before answering for the first time. Then in May, the Claude four generation launched with massive coding gains and Claude Code, an AI coding agent that became a revenue juggernaut.",
-    "visual": "thinking visualization, Claude 4 and Claude Code badges",
+    "visual": "Brain visualization: a neural network diagram animates with flowing lights showing 'CHAIN OF THOUGHT' - nodes lighting up in sequence like a reasoning path. Then a time jump: 'MAY 2025' badge. Claude 4 logo appears with 'CODING +40%' badge. The Claude Code icon (terminal window with AI symbol) appears with a revenue rocket attached, text 'REVENUE JUGGERNAUT'. Ken Burns background: circuit board pattern with flowing data.",
     "approxDurationSec": 16
   },
   {
     "id": "s16",
     "text": "By September, Anthropic had raised thirteen billion dollars in Series F at a one hundred eighty-three billion dollar valuation. The company hit a fourteen billion dollar revenue run rate by February twenty twenty-six.",
-    "visual": "funding milestones infographic",
+    "visual": "Funding milestone timeline: a horizontal timeline with markers. 'SERIES F' marker with $13B pops with a ring. A valuation badge '$183B' appears above it glowing. The timeline continues to 'FEB 2026' marker where a revenue gauge rises to '$14B ARR'. A rocket ship ascends alongside the timeline, growing as it moves right. Ken Burns background: financial newspaper texture with stock charts.",
     "approxDurationSec": 12
   },
   {
     "id": "s17",
     "text": "February twenty twenty-six was a landmark month. Anthropic raised thirty billion dollars in Series G at a three hundred eighty billion dollar valuation. It was the second largest private fundraising round in history.",
-    "visual": "money flowing into company animation",
+    "visual": "Record-breaking announcement: a giant 'SERIES G' banner unfurls from top. $30B counter spins up with dramatic flair. A valuation meter swings past $300B to $380B with a bell ring animation. Trophy podium: two spots shown - '#1' (blurred/unnamed) and '#2 ANTHROPIC' highlighted. Confetti particles fall briefly. Ken Burns background: red carpet event backdrop with spotlights.",
     "approxDurationSec": 12
   },
   {
     "id": "s18",
     "text": "By April, annualized revenue had exploded to thirty billion dollars. Eighty times growth in just over a year. Over three hundred thousand business customers, including eight of the Fortune ten companies.",
-    "visual": "revenue explosion chart, customer logos array",
+    "visual": "Revenue explosion: a bar chart with a single bar labeled 'APR 2026' that grows from bottom to $30B with a boom effect. Below it, a multiplier text '80x GROWTH IN 16 MONTHS' pulses. Customer logos cascade in a grid: logos of well-known companies (including placeholder boxes with 'FORTUNE 10' badge on 8 of them). A '300K+' customer counter spins up. Ken Burns background: green financial graph grid.",
     "approxDurationSec": 12
   },
   {
     "id": "s19",
     "text": "Claude Opus four point seven in April improved coding, vision, and complex multi-step reasoning. Claude Design let users create prototypes just by describing them. Then Opus four point eight in May introduced effort control, a dial that scales how deeply the model thinks, plus Dynamic Workflows that spawn up to a thousand parallel sub-agents.",
-    "visual": "Claude Design demo interface, effort dial, agent tree diagram",
+    "visual": "Feature showcase: three feature cards slide in vertically. (1) 'OPUS 4.7' with three icons: code bracket for coding, eye for vision, puzzle piece for reasoning - each with an up arrow. (2) 'CLAUDE DESIGN' with a mockup screen showing a UI wireframe transforming into a polished design - a 'TEXT TO PROTOTYPE' arrow. (3) 'OPUS 4.8' with an effort dial animating from MIN to MAX, then a branching tree animation showing 'DYNAMIC WORKFLOWS' splitting into thousands of sub-agents. Ken Burns background: abstract flow network.",
     "approxDurationSec": 17
   },
   {
     "id": "s20",
     "text": "Then came June ninth, twenty twenty-six. Claude Fable five launched, Anthropic's first Mythos-class model, a tier above Opus. It scored over eighty percent on SWE-bench Pro, eleven points ahead of the next best. Stripe used it to migrate a fifty-million-line codebase in a single day, a task that took a team over two months.",
-    "visual": "Fable 5 crown reveal, Stripe logo, code migration visualization",
+    "visual": "Crown reveal: a new tier card 'MYTHOS' appears above the existing Haiku/Sonnet/Opus hierarchy, with a crown icon. 'FABLE 5' text materializes with golden particles. Benchmark chart: 'SWE-BENCH PRO' bar chart - Fable 5 bar at 80%+ towers over next best at ~69%. Stripe logo with a '50M LINES' code scroll animation: a giant code file scrolls rapidly and compresses into a '1 DAY' badge, compared to a '2 MONTHS' badge on the other side. Ken Burns background: marble column texture (mythological theme).",
     "approxDurationSec": 17
   },
   {
     "id": "s21",
     "text": "But just three days later, on June twelfth, the US government issued an export control directive citing national security concerns over a potential jailbreak. Anthropic was forced to disable Fable five for all customers worldwide. It was the first time a government had pulled an AI model from the market. Anthropic publicly disagreed but is working to restore access.",
-    "visual": "government document, shutdown notice animation",
+    "visual": "Dramatic turn: a calendar flips from JUNE 9 to JUNE 12 with a red marker. An official government document seal 'EXPORT CONTROL DIRECTIVE' drops down with a heavy thud animation. A jailbreak icon (chain breaking) with warning symbol pulses. Fable 5 card slides to the right and a 'DISABLED' red stamp slams onto it. A globe animation shows 'WORLDWIDE' text with red dots covering all regions. Anthropic logo appears with 'WORKING TO RESTORE' text below. Ken Burns background: storm clouds with lightning.",
     "approxDurationSec": 17
   },
   {
     "id": "s22",
     "text": "On June first, twenty twenty-six, Anthropic filed confidentially for an IPO at a nine hundred sixty-five billion dollar valuation, after closing a sixty-five billion dollar Series H round. From zero to nearly one trillion in five years.",
-    "visual": "IPO document, valuation milestone chart",
+    "visual": "IPO filing: a confidential document folder labeled 'S-1 FILING (CONFIDENTIAL)' slides in with SEC emblem. A valuation counter spins from $0 to $965B with dramatic acceleration. Series H badge with '$65B' appears alongside. A journey arc: a path from '$0 → $965B' with 5 year markers along the way. Text '5 YEARS. $965 BILLION.' appears with impact. Ken Burns background: stock exchange floor with huge screens.",
     "approxDurationSec": 13
   },
   {
     "id": "s23",
     "text": "Anthropic now has over twenty-five hundred employees, up from two hundred forty just three years ago. They have raised over one hundred billion dollars in total funding. Annualized revenue has hit forty-seven billion dollars.",
-    "visual": "employee growth chart, funding total graphic",
+    "visual": "Triple stat display: three large stat cards animate in sequence. (1) Employee count: an animated character avatar multiplies from 240 to 2,500 with '+940%' growth badge. (2) Total funding: a funding stack with coins piling up to '$100B+' marker. (3) Revenue: a speedometer gauge with needle swinging to '$47B ARR'. All three cards glow with their respective accent colors. Ken Burns background: skyscraper being built time-lapse style.",
     "approxDurationSec": 12
   },
   {
     "id": "s24",
     "text": "What makes Anthropic different is their philosophy. They are a public benefit corporation, legally required to consider the public interest. They publish their constitution. They prioritize interpretability, trying to understand how these models actually think.",
-    "visual": "philosophy pillars with icons",
+    "visual": "Philosophy pillars: four columns rise from bottom like pillars. (1) 'PUBLIC BENEFIT' with a legal scales icon and checkmark. (2) 'OPEN CONSTITUTION' with an open book icon and glow. (3) 'INTERPRETABILITY' with a magnifying glass peering into a neural network. (4) 'SAFETY FIRST' with a shield icon. Above all, the Anthropic logo casts a warm glow. Ken Burns background: Greek temple facade (references philosophical roots).",
     "approxDurationSec": 12
   },
   {
     "id": "s25",
     "text": "But challenges remain. Critics point to the concentration of power. Anthropic is backed by Amazon, Google, Microsoft, and Nvidia. When the same models run the world's infrastructure, who holds them accountable?",
-    "visual": "power concentration web graphic",
+    "visual": "Power web: a central Anthropic logo with thick glowing lines connecting outward to four giant tech logos: Amazon, Google, Microsoft, Nvidia. Each logo has a dollar sign indicator. The lines pulse with energy. Around the periphery, infrastructure icons (bank, hospital, transport, factory) connect to the web with question marks above them. A scale of justice tilts heavily to one side. Text 'WHO WATCHES THE WATCHMAKERS?' fades in at bottom. Ken Burns background: surveillance camera pattern overlay.",
     "approxDurationSec": 11
   },
   {
     "id": "s26",
     "text": "Yet there is no denying the impact. From a splinter group of nine people with a dream to a near trillion dollar company building what may be the most important technology of our lifetime. Dario and Daniela Amodei took a bet that safety and scale could go hand in hand. So far, they are winning.",
-    "visual": "journey from 9 people to global scale animation",
+    "visual": "Journey animation: left side shows 9 small glowing figures huddled together. A path stretches from them to the right side where the Anthropic logo transforms into a giant glowing structure. Along the path, milestone markers glow as the camera travels along it. Dario and Daniela silhouette profiles appear side by side with 'BET ON SAFETY' text between them. A progress bar labeled 'SAFETY × SCALE' fills up to 80%. Ken Burns background: sunrise over mountain peaks.",
     "approxDurationSec": 15
   },
   {
     "id": "s27",
     "text": "The story of Anthropic is still being written. With Fable five's suspension, the upcoming IPO, and the race against OpenAI, one thing is clear: the future of intelligence is being shaped right now, and it might just be in safe hands.",
-    "visual": "closing shot with logo, tagline, and call to action",
+    "visual": "Closing: the Anthropic logo centers in frame with a soft golden glow. Below it, three chapter icons fade in row: 'FABLE 5' (crown with lock icon), 'IPO' (chart rising icon), 'OPENAI' (competitor icon cross). A pen writing on paper animation writes 'THE FUTURE OF INTELLIGENCE' in elegant script. Final frame: Anthropic logo with tagline 'SAFE HANDS' below it. Subscribe call-to-action icon pulses at bottom. Ken Burns background: starfield zooming out to reveal infinite cosmos.",
     "approxDurationSec": 14
   }
 ]
