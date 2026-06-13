@@ -2,6 +2,11 @@ name: Render Video
 
 on:
   workflow_dispatch:
+    inputs:
+      tts_run_id:
+        description: "TTS workflow run ID to download artifacts from (leave empty for latest)"
+        type: string
+        required: false
   workflow_run:
     workflows: ["Generate TTS Audio"]
     types:
@@ -42,6 +47,8 @@ jobs:
         with:
           name: tts-audio
           path: video/public/audio/
+          run-id: ${{ github.event.inputs.tts_run_id || '' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
 
       - name: Download timing config (manual trigger)
@@ -50,6 +57,8 @@ jobs:
         with:
           name: timing-config
           path: video/public/
+          run-id: ${{ github.event.inputs.tts_run_id || '' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
 
       - name: Check downloaded assets
