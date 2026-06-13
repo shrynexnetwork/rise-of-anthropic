@@ -2,15 +2,17 @@ name: Render Video
 
 on:
   workflow_dispatch:
-    inputs:
-      tts_run_id:
-        description: "TTS workflow run ID to download artifacts from (leave empty for latest)"
-        type: string
-        required: false
-  workflow_run:
-    workflows: ["Generate TTS Audio"]
-    types:
-      - completed
+  push:
+    branches: [main]
+    paths:
+      - "video/public/audio/**"
+      - "video/public/timings.json"
+      - "video/src/**"
+      - "script.json"
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   render:
@@ -23,50 +25,14 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Download audio files from triggering run
-        if: github.event_name == 'workflow_run'
-        uses: actions/download-artifact@v4
-        with:
-          name: tts-audio
-          path: video/public/audio/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Download timing config from triggering run
-        if: github.event_name == 'workflow_run'
-        uses: actions/download-artifact@v4
-        with:
-          name: timing-config
-          path: video/public/
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Download audio files (manual trigger)
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/download-artifact@v4
-        with:
-          name: tts-audio
-          path: video/public/audio/
-          run-id: ${{ github.event.inputs.tts_run_id || '' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
-
-      - name: Download timing config (manual trigger)
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/download-artifact@v4
-        with:
-          name: timing-config
-          path: video/public/
-          run-id: ${{ github.event.inputs.tts_run_id || '' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
-
-      - name: Check downloaded assets
+      - name: Verify local assets
         run: |
           echo "=== Audio files ==="
-          ls -la video/public/audio/ 2>/dev/null || echo "No audio files found"
+          ls -la video/public/audio/ | head -5
+          echo "..."
+          ls -la video/public/audio/ | tail -5
           echo "=== Timing config ==="
-          cat video/public/timings.json 2>/dev/null || echo "No timing config found"
+          cat video/public/timings.json | head -5
 
       - name: Install dependencies
         working-directory: ./video
@@ -75,13 +41,12 @@ jobs:
       - name: Render video
         working-directory: ./video
         run: |
-          CHROME_PATH=$(command -v google-chrome-stable || command -v google-chrome || command -v chromium-browser || echo "/usr/bin/google-chrome")
+          CHROME_PATH=$(command -v google-chrome-stable || command -v google-chrome || command -v chromium-browser || echo "/usr/bin/google-chrome-stable")
           if [ ! -x "$CHROME_PATH" ]; then
             echo "Chrome not found, installing..."
-            sudo apt-get update -qq && sudo apt-get install -y -qq google-chrome-stable 2>/dev/null
+            sudo apt-get update -qq && sudo apt-get install -y -qq google-chrome-stable
             CHROME_PATH=$(command -v google-chrome-stable)
           fi
-          echo "Using browser: $CHROME_PATH"
           export REMOTION_BROWSER_EXECUTABLE="$CHROME_PATH"
           mkdir -p out
           npx remotion render src/Root.tsx Main out/anthropic-story.mp4 \
