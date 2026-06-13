@@ -5,8 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "video/public/audio/**"
-      - "video/public/timings.json"
+      - "video/public/**"
       - "video/src/**"
       - "script.json"
 
@@ -25,14 +24,18 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install system Chrome
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq google-chrome-stable
+          echo "CHROME_BIN=$(which google-chrome-stable)" >> $GITHUB_ENV
+
       - name: Verify local assets
         run: |
           echo "=== Audio files ==="
-          ls -la video/public/audio/ | head -5
-          echo "..."
-          ls -la video/public/audio/ | tail -5
+          ls video/public/*.wav 2>/dev/null | head -5 || echo "No WAV files"
           echo "=== Timing config ==="
-          cat video/public/timings.json | head -5
+          cat video/public/timings.json 2>/dev/null | head -5 || echo "No timings"
 
       - name: Install dependencies
         working-directory: ./video
@@ -40,14 +43,9 @@ jobs:
 
       - name: Render video
         working-directory: ./video
+        env:
+          REMOTION_BROWSER_EXECUTABLE: ${{ env.CHROME_BIN }}
         run: |
-          CHROME_PATH=$(command -v google-chrome-stable || command -v google-chrome || command -v chromium-browser || echo "/usr/bin/google-chrome-stable")
-          if [ ! -x "$CHROME_PATH" ]; then
-            echo "Chrome not found, installing..."
-            sudo apt-get update -qq && sudo apt-get install -y -qq google-chrome-stable
-            CHROME_PATH=$(command -v google-chrome-stable)
-          fi
-          export REMOTION_BROWSER_EXECUTABLE="$CHROME_PATH"
           mkdir -p out
           npx remotion render src/Root.tsx Main out/anthropic-story.mp4 \
             --log=verbose \
