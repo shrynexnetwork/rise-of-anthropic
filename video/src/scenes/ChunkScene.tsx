@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, interpolate } from "remotion";
+import { AbsoluteFill, Audio, interpolate, useCurrentFrame } from "remotion";
 import { COLORS, FONTS, WIDTH, HEIGHT } from "../config";
 import { ScriptChunk, TimingEntry } from "../types";
 import { KenBurnsBackground } from "../components/KenBurnsBackground";
@@ -9,16 +9,15 @@ import { SpringEntry } from "../components/SpringEntry";
 interface ChunkSceneProps {
   chunk: ScriptChunk;
   timing: TimingEntry;
-  frame: number;
   audioSrc?: string;
 }
 
 export const ChunkScene: React.FC<ChunkSceneProps> = ({
   chunk,
   timing,
-  frame,
   audioSrc,
 }) => {
+  const frame = useCurrentFrame();
   const { durationInFrames } = timing;
   const isIntro = chunk.id === "s00";
   const isOutro = chunk.id === "s27";

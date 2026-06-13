@@ -11,7 +11,7 @@ interface MainVideoProps {
 export const MainVideo: React.FC<MainVideoProps> = ({ timingOverrides }) => {
   let currentFrame = 0;
 
-  const sequences = scriptChunks.map((chunk, index) => {
+  const sequences = scriptChunks.map((chunk) => {
     const timing = timingOverrides?.[chunk.id];
     const durationInFrames = timing
       ? timing.durationInFrames
@@ -25,8 +25,7 @@ export const MainVideo: React.FC<MainVideoProps> = ({ timingOverrides }) => {
         <ChunkScene
           chunk={chunk}
           timing={{ chunkId: chunk.id, durationInFrames, audioFile: timing?.audioFile || "" }}
-          frame={0}
-          audioSrc={timing?.audioFile ? `${process.env.PUBLIC_URL || ""}/${timing.audioFile}` : undefined}
+          audioSrc={timing?.audioFile ? `${process.env.PUBLIC_URL || ""}/audio/${timing.audioFile}` : undefined}
         />
       </Sequence>
     );
