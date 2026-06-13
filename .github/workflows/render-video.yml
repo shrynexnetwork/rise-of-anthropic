@@ -72,13 +72,17 @@ jobs:
         working-directory: ./video
         run: npm install
 
-      - name: Ensure Remotion browser
-        working-directory: ./video
-        run: npx remotion browser ensure
-
       - name: Render video
         working-directory: ./video
         run: |
+          CHROME_PATH=$(command -v google-chrome-stable || command -v google-chrome || command -v chromium-browser || echo "/usr/bin/google-chrome")
+          if [ ! -x "$CHROME_PATH" ]; then
+            echo "Chrome not found, installing..."
+            sudo apt-get update -qq && sudo apt-get install -y -qq google-chrome-stable 2>/dev/null
+            CHROME_PATH=$(command -v google-chrome-stable)
+          fi
+          echo "Using browser: $CHROME_PATH"
+          export REMOTION_BROWSER_EXECUTABLE="$CHROME_PATH"
           mkdir -p out
           npx remotion render src/Root.tsx Main out/anthropic-story.mp4 \
             --log=verbose \
