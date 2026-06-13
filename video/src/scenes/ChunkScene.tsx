@@ -21,7 +21,7 @@ export const ChunkScene: React.FC<ChunkSceneProps> = ({
 }) => {
   const { durationInFrames } = timing;
   const isIntro = chunk.id === "s00";
-  const isOutro = chunk.id === "s40";
+  const isOutro = chunk.id === "s27";
 
   const showLogo = chunk.visual.toLowerCase().includes("logo");
   const showChart = chunk.visual.toLowerCase().includes("chart") || chunk.visual.toLowerCase().includes("graph");

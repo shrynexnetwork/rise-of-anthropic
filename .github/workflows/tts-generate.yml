@@ -7,67 +7,87 @@ on:
     paths:
       - "script.json"
 
+concurrency:
+  group: tts-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  generate-tts:
+  split-items:
     runs-on: ubuntu-latest
+    outputs:
+      group0: ${{ steps.split.outputs.group0 }}
+      group1: ${{ steps.split.outputs.group1 }}
+      group2: ${{ steps.split.outputs.group2 }}
+      group3: ${{ steps.split.outputs.group3 }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install ffmpeg & bc
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg bc
-
-      - name: Build TTS items
-        id: items
+      - id: split
         run: |
           node -e "
             const fs = require('fs');
             const chunks = require('./script.json');
-            const items = chunks.map((chunk, i) => ({
-              text: chunk.text,
-              voice: i % 2 === 0 ? 'af_bella' : 'am_onyx',
-              speed: 1.0,
-              filename: chunk.id
-            }));
-            const json = JSON.stringify(items);
-            fs.writeFileSync('tts-items.json', json);
-            
-            // Write to GITHUB_OUTPUT (escape for shell)
-            const out = json.replace(/'/g, \"'\\\\''\");
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'items<<EOFMARKER\n' + json + '\nEOFMARKER\n');
-            console.log('Generated ' + items.length + ' TTS items');
+            const groups = [[], [], [], []];
+            chunks.forEach((c, i) => {
+              groups[i % 4].push({
+                text: c.text,
+                voice: i % 2 === 0 ? 'af_bella' : 'am_onyx',
+                speed: 1.0,
+                filename: c.id
+              });
+            });
+            groups.forEach((g, gi) => {
+              const json = JSON.stringify(g);
+              const escaped = json.replace(/'/g, \"'\\\\''\");
+              fs.appendFileSync(process.env.GITHUB_OUTPUT, 'group' + gi + '<<EOFMARKER\n' + json + '\nEOFMARKER\n');
+            });
+            console.log('Split ' + chunks.length + ' chunks into ' + groups.length + ' groups');
           "
 
-      - name: Generate TTS using ShryneTTS
+  generate-tts:
+    needs: split-items
+    strategy:
+      matrix:
+        group: [0, 1, 2, 3]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ffmpeg & bc
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg bc
+      - name: Generate TTS group ${{ matrix.group }}
         uses: Shrawan13-glitch/tts-action@v1
         with:
-          items: ${{ steps.items.outputs.items }}
+          items: ${{ fromJSON(needs.split-items.outputs[format('group{0}', matrix.group)]) }}
           output-dir: "tts-output"
+      - name: Upload group ${{ matrix.group }} audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: tts-audio-${{ matrix.group }}
+          path: tts-output/
+          retention-days: 1
 
-      - name: List generated audio
-        run: |
-          echo "=== Generated WAV files ==="
-          ls -la tts-output/ 2>/dev/null
-          count=$(ls tts-output/*.wav 2>/dev/null | wc -l)
-          echo "Total files: $count"
-          if [ "$count" -eq 0 ]; then
-            echo "WARNING: No audio files generated!"
-          fi
-
-      - name: Measure actual durations
+  merge-and-measure:
+    needs: generate-tts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ffmpeg & bc
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg bc
+      - name: Download all group audio
+        uses: actions/download-artifact@v4
+        with:
+          pattern: tts-audio-*
+          merge-multiple: true
+          path: tts-output
+      - name: List merged audio
+        run: ls -la tts-output/
+      - name: Measure actual durations & build config
         run: |
           node -e "
             const fs = require('fs');
             const { execSync } = require('child_process');
             const chunks = require('./script.json');
-            
             const timings = {};
             let totalEst = 0, totalAct = 0;
-            
             chunks.forEach(chunk => {
               const wavPath = 'tts-output/' + chunk.id + '.wav';
               let duration = chunk.approxDurationSec;
@@ -77,59 +97,45 @@ jobs:
                     'ffprobe -v error -show_entries format=duration -of csv=p=0 \"' + wavPath + '\"',
                     { encoding: 'utf8' }
                   ).trim();
-                  if (out && !isNaN(parseFloat(out))) {
-                    duration = parseFloat(out);
-                  }
+                  if (out && !isNaN(parseFloat(out))) duration = parseFloat(out);
                 }
               } catch(e) {
                 console.error('  Error measuring ' + chunk.id + ': using estimate');
               }
-              
               const frames = Math.max(Math.round(duration * 30), 30);
               totalEst += chunk.approxDurationSec;
               totalAct += duration;
-              
               timings[chunk.id] = {
                 durationInFrames: frames,
                 audioFile: chunk.id + '.wav',
-                actualDurationSec: duration,
-                estimatedDurationSec: chunk.approxDurationSec
+                actualDurationSec: duration
               };
-              
               const diff = Math.abs(duration - chunk.approxDurationSec);
               if (diff > 1.5) {
-                console.log('⚠️  ' + chunk.id + ': est=' + chunk.approxDurationSec.toFixed(1) + 
+                console.log('⚠️  ' + chunk.id + ': est=' + chunk.approxDurationSec.toFixed(1) +
                   's act=' + duration.toFixed(2) + 's (diff=' + diff.toFixed(1) + 's) - ADJUST');
               } else {
                 console.log('✓ ' + chunk.id + ': ' + duration.toFixed(2) + 's -> ' + frames + 'fr');
               }
             });
-            
             const totalDiff = totalAct - totalEst;
             console.log('\\n=== Summary ===');
             console.log('Total estimated: ' + totalEst.toFixed(1) + 's (' + (totalEst/60).toFixed(1) + 'min)');
             console.log('Total actual:    ' + totalAct.toFixed(2) + 's (' + (totalAct/60).toFixed(1) + 'min)');
             console.log('Difference:      ' + (totalDiff > 0 ? '+' : '') + totalDiff.toFixed(1) + 's');
-            console.log('Video target:    7-8 minutes');
-            
             if (totalAct < 360 || totalAct > 540) {
-              console.log('⚠️  WARNING: Total duration (' + (totalAct/60).toFixed(1) + 
-                'min) is outside target range (6-9 min). Consider adjusting script.');
+              console.log('⚠️  Duration (' + (totalAct/60).toFixed(1) + 'min) outside 6-9 min range.');
             } else {
-              console.log('✓ Duration within acceptable range.');
+              console.log('✓ Duration within range.');
             }
-            
             fs.writeFileSync('timings.json', JSON.stringify(timings, null, 2));
-            console.log('\\ntimings.json written');
           "
-
-      - name: Upload audio artifacts
+      - name: Upload merged audio
         uses: actions/upload-artifact@v4
         with:
           name: tts-audio
           path: tts-output/
           retention-days: 30
-
       - name: Upload timing config
         uses: actions/upload-artifact@v4
         with:
