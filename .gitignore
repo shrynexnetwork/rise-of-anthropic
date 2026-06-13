@@ -3,6 +3,5 @@ dist/
 video/node_modules/
 video/out/
 *.mp4
-timings.json
 .DS_Store
 *.log
