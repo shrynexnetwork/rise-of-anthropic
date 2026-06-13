@@ -2,11 +2,10 @@ name: Render Video
 
 on:
   workflow_dispatch:
-    inputs:
-      use_actual_timing:
-        description: "Use actual audio durations from timings.json"
-        type: boolean
-        default: true
+  workflow_run:
+    workflows: ["Generate TTS Audio"]
+    types:
+      - completed
 
 jobs:
   render:
@@ -19,14 +18,34 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Download audio files
+      - name: Download audio files from triggering run
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          name: tts-audio
+          path: video/public/audio/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download timing config from triggering run
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v4
+        with:
+          name: timing-config
+          path: video/public/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download audio files (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/download-artifact@v4
         with:
           name: tts-audio
           path: video/public/audio/
         continue-on-error: true
 
-      - name: Download timing config
+      - name: Download timing config (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/download-artifact@v4
         with:
           name: timing-config
@@ -45,6 +64,7 @@ jobs:
         run: npm install
 
       - name: Ensure Remotion browser
+        working-directory: ./video
         run: npx remotion browser ensure
 
       - name: Render video
