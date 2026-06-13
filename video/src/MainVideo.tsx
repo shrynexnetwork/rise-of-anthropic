@@ -25,7 +25,7 @@ export const MainVideo: React.FC<MainVideoProps> = ({ timingOverrides }) => {
         <ChunkScene
           chunk={chunk}
           timing={{ chunkId: chunk.id, durationInFrames, audioFile: timing?.audioFile || "" }}
-          audioSrc={timing?.audioFile ? `${process.env.PUBLIC_URL || ""}/audio/${timing.audioFile}` : undefined}
+          audioSrc={timing?.audioFile ? `${process.env.PUBLIC_URL || ""}/${timing.audioFile}` : undefined}
         />
       </Sequence>
     );
