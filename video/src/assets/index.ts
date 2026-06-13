@@ -13,6 +13,7 @@ import secEmblem from "../assets/logos/sec-emblem.svg";
 import unEmblem from "../assets/logos/un-emblem.svg";
 
 import darioAmodei from "../assets/people/dario-amodei.jpg";
+import danielaAmodei from "../assets/people/daniela-amodei.jpg";
 import claudeShannon from "../assets/people/claude-shannon.jpg";
 import sbf from "../assets/people/sbf.png";
 
@@ -77,6 +78,7 @@ export const logos = {
 
 export const people = {
   darioAmodei,
+  danielaAmodei,
   claudeShannon,
   sbf,
 };

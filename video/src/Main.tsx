@@ -17,14 +17,17 @@ export const Main: React.FC = () => {
     : scriptChunks.reduce((acc, chunk) => acc + getChunkDurationFrames(chunk), 0);
 
   return (
-    <Composition
-      id="Main"
-      component={MainVideo}
-      durationInFrames={totalFrames}
-      fps={FPS}
-      width={WIDTH}
-      height={HEIGHT}
-      defaultProps={{ timingOverrides }}
-    />
+    <>
+      <Composition
+        id="Main"
+        component={MainVideo}
+        durationInFrames={totalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+        defaultProps={{ timingOverrides }}
+      />
+
+    </>
   );
 };

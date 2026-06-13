@@ -5,7 +5,7 @@ export type SceneType =
   | "process-diagram" | "convergence" | "tier-cards"
   | "chart-benchmark" | "chart-revenue" | "chart-stat"
   | "investment-stack" | "thinking" | "record-reveal"
-  | "crown-reveal" | "shutdown" | "ipo-filing"
+  | "shutdown" | "ipo-filing"
   | "philosophy-pillars" | "power-web" | "journey"
   | "cosmic" | "split-tension";
 
@@ -20,7 +20,7 @@ export interface TextOverlay {
   y: number;
   fontSize: number;
   delay: number;
-  animation: "fade" | "spring-up" | "spring-scale" | "slide-left" | "slide-right";
+  animation: "fade" | "spring-up" | "spring-scale" | "slide-left" | "slide-right" | "elastic-pop" | "slide-up";
   color?: string;
   fontWeight?: number;
 }
@@ -34,7 +34,7 @@ export interface VisualElement {
   y: number;
   width?: number;
   delay: number;
-  animation: "spring-up" | "spring-scale" | "fade" | "slide-left" | "slide-right";
+  animation: "spring-up" | "spring-scale" | "fade" | "slide-left" | "slide-right" | "elastic-pop";
   color?: string;
 }
 
@@ -53,7 +53,7 @@ export const sceneConfigs: Record<string, SceneConfig> = {
     textOverlays: [
       { text: "THE RISE OF", x: 50, y: 38, fontSize: 32, delay: 10, animation: "fade", color: "#8888aa", fontWeight: 300 },
       { text: "ANTHROPIC", x: 50, y: 50, fontSize: 80, delay: 15, animation: "spring-scale", color: "#f0c040", fontWeight: 900 },
-      { text: "From $0 to $965B in Five Years", x: 50, y: 62, fontSize: 22, delay: 25, animation: "fade", color: "#8888aa", fontWeight: 300 },
+      { text: "From $0 to $965B in Five Years", x: 50, y: 62, fontSize: 22, delay: 25, animation: "slide-up", color: "#8888aa", fontWeight: 300 },
     ],
   },
   s01: {
@@ -67,7 +67,9 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "Safety & Policy Lead", x: 75, y: 67, fontSize: 16, delay: 23, animation: "fade", color: "#8888aa", fontWeight: 300 },
     ],
     elements: [
-      { type: "logo", src: logos.openai, x: 50, y: 35, width: 120, delay: 5, animation: "fade" },
+      { type: "image", src: people.darioAmodei, x: 25, y: 42, width: 100, delay: 12, animation: "spring-up" },
+      { type: "image", src: people.danielaAmodei, x: 75, y: 42, width: 100, delay: 18, animation: "spring-up" },
+      { type: "logo", src: logos.openai, x: 50, y: 30, width: 120, delay: 5, animation: "elastic-pop" },
     ],
   },
   s02: {
@@ -98,9 +100,9 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "SEED ROUND — MAY 2021", x: 50, y: 28, fontSize: 18, delay: 5, animation: "fade", color: "#8888aa", fontWeight: 600 },
     ],
     elements: [
-      { type: "card", label: "Jaan Tallinn", sublabel: "Skype Co-founder", src: logos.skype, x: 15, y: 50, width: 180, delay: 10, animation: "spring-up", color: "#4080f0" },
-      { type: "card", label: "Dustin Moskovitz", sublabel: "Facebook Co-founder", src: logos.meta, x: 41, y: 50, width: 180, delay: 15, animation: "spring-up", color: "#4080f0" },
-      { type: "card", label: "Eric Schmidt", sublabel: "Former Google CEO", src: logos.google, x: 67, y: 50, width: 180, delay: 20, animation: "spring-up", color: "#4080f0" },
+      { type: "card", label: "Jaan Tallinn", sublabel: "Skype Co-founder", src: logos.skype, x: 24, y: 50, width: 180, delay: 10, animation: "spring-up", color: "#4080f0" },
+      { type: "card", label: "Dustin Moskovitz", sublabel: "Facebook Co-founder", src: logos.meta, x: 50, y: 50, width: 180, delay: 15, animation: "spring-up", color: "#4080f0" },
+      { type: "card", label: "Eric Schmidt", sublabel: "Former Google CEO", src: logos.google, x: 76, y: 50, width: 180, delay: 20, animation: "spring-up", color: "#4080f0" },
     ],
   },
   s05: {
@@ -155,8 +157,8 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "First AI company to publish model principles", x: 50, y: 85, fontSize: 16, delay: 28, animation: "fade", color: "#8888aa", fontWeight: 300 },
     ],
     elements: [
-      { type: "logo", src: logos.un, x: 25, y: 35, width: 60, delay: 5, animation: "fade" },
-      { type: "logo", src: logos.apple, x: 75, y: 35, width: 60, delay: 12, animation: "fade" },
+      { type: "logo", src: logos.un, x: 25, y: 35, width: 60, delay: 5, animation: "spring-up" },
+      { type: "logo", src: logos.apple, x: 75, y: 35, width: 60, delay: 12, animation: "spring-up" },
     ],
   },
   s09: {
@@ -166,12 +168,14 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "CLAUDE 1", x: 30, y: 25, fontSize: 48, delay: 0, animation: "spring-up", color: "#f0c040", fontWeight: 900 },
       { text: "100K Token Context", x: 30, y: 35, fontSize: 18, delay: 8, animation: "fade", color: "#8888aa", fontWeight: 400 },
       { text: "H-H-H Principles", x: 30, y: 42, fontSize: 16, delay: 12, animation: "fade", color: "#40f0a0", fontWeight: 600 },
-      { text: "$1.3B", x: 70, y: 28, fontSize: 36, delay: 15, animation: "spring-scale", color: "#40f0a0", fontWeight: 900 },
-      { text: "$2B", x: 85, y: 28, fontSize: 36, delay: 22, animation: "spring-scale", color: "#4080f0", fontWeight: 900 },
+      { text: "$1.3B", x: 68, y: 24, fontSize: 40, delay: 15, animation: "spring-scale", color: "#40f0a0", fontWeight: 900 },
+      { text: "$2B", x: 86, y: 24, fontSize: 40, delay: 22, animation: "spring-scale", color: "#4080f0", fontWeight: 900 },
+      { text: "Amazon", x: 68, y: 32, fontSize: 14, delay: 18, animation: "fade", color: "#40f0a0", fontWeight: 400 },
+      { text: "Google", x: 86, y: 32, fontSize: 14, delay: 25, animation: "fade", color: "#4080f0", fontWeight: 400 },
     ],
     elements: [
-      { type: "logo", src: logos.amazon, x: 70, y: 42, width: 50, delay: 17, animation: "fade" },
-      { type: "logo", src: logos.google, x: 85, y: 42, width: 50, delay: 24, animation: "fade" },
+      { type: "logo", src: logos.amazon, x: 68, y: 48, width: 90, delay: 17, animation: "elastic-pop" },
+      { type: "logo", src: logos.google, x: 86, y: 48, width: 90, delay: 24, animation: "elastic-pop" },
     ],
   },
   s10: {
@@ -227,13 +231,13 @@ export const sceneConfigs: Record<string, SceneConfig> = {
     sceneType: "investment-stack",
     background: { image: backgrounds.citySkyline, gradient: "linear-gradient(180deg, rgba(10,10,26,0.2) 0%, rgba(10,10,26,0.8) 100%)" },
     textOverlays: [
-      { text: "$8 BILLION", x: 50, y: 25, fontSize: 48, delay: 0, animation: "spring-scale", color: "#f0c040", fontWeight: 900 },
-      { text: "Amazon Total Investment", x: 50, y: 35, fontSize: 18, delay: 8, animation: "fade", color: "#8888aa", fontWeight: 400 },
-      { text: "ANTHROPIC", x: 50, y: 60, fontSize: 36, delay: 18, animation: "spring-up", color: "#ffffff", fontWeight: 800 },
-      { text: "No longer a startup — A Powerhouse", x: 50, y: 68, fontSize: 18, delay: 22, animation: "fade", color: "#f0c040", fontWeight: 400 },
+      { text: "$8 BILLION", x: 50, y: 22, fontSize: 52, delay: 0, animation: "spring-scale", color: "#f0c040", fontWeight: 900 },
+      { text: "Amazon Total Investment", x: 50, y: 32, fontSize: 20, delay: 8, animation: "fade", color: "#8888aa", fontWeight: 400 },
+      { text: "ANTHROPIC", x: 50, y: 62, fontSize: 36, delay: 18, animation: "spring-up", color: "#ffffff", fontWeight: 800 },
+      { text: "No longer a startup — A Powerhouse", x: 50, y: 70, fontSize: 18, delay: 22, animation: "fade", color: "#f0c040", fontWeight: 400 },
     ],
     elements: [
-      { type: "logo", src: logos.amazon, x: 50, y: 45, width: 80, delay: 5, animation: "spring-scale" },
+      { type: "logo", src: logos.amazon, x: 50, y: 44, width: 120, delay: 5, animation: "spring-scale" },
     ],
   },
   s15: {
@@ -298,7 +302,7 @@ export const sceneConfigs: Record<string, SceneConfig> = {
     ],
   },
   s20: {
-    sceneType: "crown-reveal",
+    sceneType: "hero",
     background: { image: backgrounds.marbleTexture, gradient: "linear-gradient(180deg, rgba(10,10,26,0.2) 0%, rgba(10,10,26,0.8) 100%)" },
     textOverlays: [
       { text: "JUNE 9, 2026", x: 50, y: 8, fontSize: 18, delay: 0, animation: "fade", color: "#f0c040", fontWeight: 700 },
@@ -310,7 +314,7 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "(was 2 months for a team)", x: 50, y: 76, fontSize: 14, delay: 32, animation: "fade", color: "#8888aa", fontWeight: 300 },
     ],
     elements: [
-      { type: "logo", src: logos.stripe, x: 50, y: 62, width: 50, delay: 26, animation: "fade" },
+      { type: "logo", src: logos.stripe, x: 50, y: 62, width: 100, delay: 26, animation: "spring-up" },
     ],
   },
   s21: {
@@ -320,7 +324,6 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "JUNE 12, 2026", x: 50, y: 10, fontSize: 18, delay: 0, animation: "fade", color: "#f04040", fontWeight: 700 },
       { text: "EXPORT CONTROL DIRECTIVE", x: 50, y: 25, fontSize: 28, delay: 5, animation: "spring-up", color: "#f04040", fontWeight: 800 },
       { text: "FABLE 5", x: 50, y: 45, fontSize: 36, delay: 15, animation: "fade", color: "#ffffff", fontWeight: 700 },
-      { text: "DISABLED", x: 50, y: 55, fontSize: 48, delay: 20, animation: "spring-scale", color: "#f04040", fontWeight: 900 },
       { text: "First time a government pulled an AI model", x: 50, y: 68, fontSize: 16, delay: 25, animation: "fade", color: "#ff8888", fontWeight: 400 },
       { text: "Anthropic: working to restore access", x: 50, y: 78, fontSize: 16, delay: 30, animation: "fade", color: "#f0c040", fontWeight: 400 },
     ],
@@ -337,7 +340,7 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "5 Years: $0 → $965 Billion", x: 50, y: 76, fontSize: 20, delay: 28, animation: "fade", color: "#ffffff", fontWeight: 600 },
     ],
     elements: [
-      { type: "logo", src: logos.sec, x: 50, y: 32, width: 40, delay: 3, animation: "fade" },
+      { type: "logo", src: logos.sec, x: 50, y: 32, width: 40, delay: 3, animation: "elastic-pop" },
     ],
   },
   s23: {
@@ -375,10 +378,10 @@ export const sceneConfigs: Record<string, SceneConfig> = {
     ],
     elements: [
       { type: "logo", src: logos.anthropic, x: 50, y: 38, width: 60, delay: 5, animation: "spring-scale", color: "#f0c040" },
-      { type: "logo", src: logos.amazon, x: 15, y: 55, width: 50, delay: 10, animation: "fade" },
-      { type: "logo", src: logos.google, x: 35, y: 60, width: 50, delay: 13, animation: "fade" },
-      { type: "logo", src: logos.microsoft, x: 65, y: 60, width: 50, delay: 16, animation: "fade" },
-      { type: "logo", src: logos.nvidia, x: 85, y: 55, width: 50, delay: 19, animation: "fade" },
+      { type: "logo", src: logos.amazon, x: 15, y: 55, width: 50, delay: 10, animation: "spring-up" },
+      { type: "logo", src: logos.google, x: 35, y: 60, width: 50, delay: 13, animation: "spring-up" },
+      { type: "logo", src: logos.microsoft, x: 65, y: 60, width: 50, delay: 16, animation: "spring-up" },
+      { type: "logo", src: logos.nvidia, x: 85, y: 55, width: 50, delay: 19, animation: "spring-up" },
     ],
   },
   s26: {
@@ -391,6 +394,8 @@ export const sceneConfigs: Record<string, SceneConfig> = {
       { text: "Dario & Daniela's bet is winning", x: 50, y: 78, fontSize: 20, delay: 25, animation: "fade", color: "#40f0a0", fontWeight: 400 },
     ],
     elements: [
+      { type: "image", src: people.darioAmodei, x: 38, y: 70, width: 60, delay: 22, animation: "spring-up", color: "#f0c040" },
+      { type: "image", src: people.danielaAmodei, x: 62, y: 70, width: 60, delay: 25, animation: "spring-up", color: "#f0c040" },
       { type: "logo", src: logos.anthropic, x: 50, y: 45, width: 50, delay: 18, animation: "spring-scale", color: "#f0c040" },
     ],
   },
