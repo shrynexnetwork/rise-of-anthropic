@@ -1,0 +1,138 @@
+name: Generate TTS Audio
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "script.json"
+
+jobs:
+  generate-tts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ffmpeg & bc
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg bc
+
+      - name: Build TTS items
+        id: items
+        run: |
+          node -e "
+            const fs = require('fs');
+            const chunks = require('./script.json');
+            const items = chunks.map((chunk, i) => ({
+              text: chunk.text,
+              voice: i % 2 === 0 ? 'af_bella' : 'am_onyx',
+              speed: 1.0,
+              filename: chunk.id
+            }));
+            const json = JSON.stringify(items);
+            fs.writeFileSync('tts-items.json', json);
+            
+            // Write to GITHUB_OUTPUT (escape for shell)
+            const out = json.replace(/'/g, \"'\\\\''\");
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'items<<EOFMARKER\n' + json + '\nEOFMARKER\n');
+            console.log('Generated ' + items.length + ' TTS items');
+          "
+
+      - name: Generate TTS using ShryneTTS
+        uses: Shrawan13-glitch/tts-action@v1
+        with:
+          items: ${{ steps.items.outputs.items }}
+          output-dir: "tts-output"
+
+      - name: List generated audio
+        run: |
+          echo "=== Generated WAV files ==="
+          ls -la tts-output/ 2>/dev/null
+          count=$(ls tts-output/*.wav 2>/dev/null | wc -l)
+          echo "Total files: $count"
+          if [ "$count" -eq 0 ]; then
+            echo "WARNING: No audio files generated!"
+          fi
+
+      - name: Measure actual durations
+        run: |
+          node -e "
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+            const chunks = require('./script.json');
+            
+            const timings = {};
+            let totalEst = 0, totalAct = 0;
+            
+            chunks.forEach(chunk => {
+              const wavPath = 'tts-output/' + chunk.id + '.wav';
+              let duration = chunk.approxDurationSec;
+              try {
+                if (fs.existsSync(wavPath)) {
+                  const out = execSync(
+                    'ffprobe -v error -show_entries format=duration -of csv=p=0 \"' + wavPath + '\"',
+                    { encoding: 'utf8' }
+                  ).trim();
+                  if (out && !isNaN(parseFloat(out))) {
+                    duration = parseFloat(out);
+                  }
+                }
+              } catch(e) {
+                console.error('  Error measuring ' + chunk.id + ': using estimate');
+              }
+              
+              const frames = Math.max(Math.round(duration * 30), 30);
+              totalEst += chunk.approxDurationSec;
+              totalAct += duration;
+              
+              timings[chunk.id] = {
+                durationInFrames: frames,
+                audioFile: chunk.id + '.wav',
+                actualDurationSec: duration,
+                estimatedDurationSec: chunk.approxDurationSec
+              };
+              
+              const diff = Math.abs(duration - chunk.approxDurationSec);
+              if (diff > 1.5) {
+                console.log('⚠️  ' + chunk.id + ': est=' + chunk.approxDurationSec.toFixed(1) + 
+                  's act=' + duration.toFixed(2) + 's (diff=' + diff.toFixed(1) + 's) - ADJUST');
+              } else {
+                console.log('✓ ' + chunk.id + ': ' + duration.toFixed(2) + 's -> ' + frames + 'fr');
+              }
+            });
+            
+            const totalDiff = totalAct - totalEst;
+            console.log('\\n=== Summary ===');
+            console.log('Total estimated: ' + totalEst.toFixed(1) + 's (' + (totalEst/60).toFixed(1) + 'min)');
+            console.log('Total actual:    ' + totalAct.toFixed(2) + 's (' + (totalAct/60).toFixed(1) + 'min)');
+            console.log('Difference:      ' + (totalDiff > 0 ? '+' : '') + totalDiff.toFixed(1) + 's');
+            console.log('Video target:    7-8 minutes');
+            
+            if (totalAct < 360 || totalAct > 540) {
+              console.log('⚠️  WARNING: Total duration (' + (totalAct/60).toFixed(1) + 
+                'min) is outside target range (6-9 min). Consider adjusting script.');
+            } else {
+              console.log('✓ Duration within acceptable range.');
+            }
+            
+            fs.writeFileSync('timings.json', JSON.stringify(timings, null, 2));
+            console.log('\\ntimings.json written');
+          "
+
+      - name: Upload audio artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tts-audio
+          path: tts-output/
+          retention-days: 30
+
+      - name: Upload timing config
+        uses: actions/upload-artifact@v4
+        with:
+          name: timing-config
+          path: timings.json
+          retention-days: 30

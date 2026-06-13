@@ -1,0 +1,10 @@
+node_modules/
+dist/
+video/node_modules/
+video/out/
+video/public/audio/
+*.mp4
+*.mp3
+timings.json
+.DS_Store
+*.log

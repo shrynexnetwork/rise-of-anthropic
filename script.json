@@ -1,0 +1,248 @@
+[
+  {
+    "id": "s00",
+    "text": "In just five years, a small startup born from a split at OpenAI has become one of the most valuable companies on the planet, worth nearly one trillion dollars. This is the story of Anthropic and their incredible rise.",
+    "visual": "intro montage with company logo",
+    "approx_duration_sec": 10
+  },
+  {
+    "id": "s01",
+    "text": "To understand Anthropic, we need to go back to twenty twenty-one. Tensions at OpenAI were boiling over. Dario Amodei, the company's VP of Research, and his sister Daniela, who led safety and policy, had growing concerns about the direction of the company.",
+    "visual": "openai logo morphing into split paths",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s02",
+    "text": "They believed AI safety was being pushed aside in the race to commercialize. So in January of twenty twenty-one, Dario, Daniela, and seven other researchers walked out and founded Anthropic as a public benefit corporation.",
+    "visual": "people icons exiting one building, forming new group",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s03",
+    "text": "Their mission was radical for Silicon Valley: build incredibly powerful AI, but make safety the priority, not an afterthought.",
+    "visual": "mission statement with highlight effect",
+    "approx_duration_sec": 7
+  },
+  {
+    "id": "s04",
+    "text": "The name Anthropic comes from the anthropic principle in physics, the idea that the universe's laws seem fine-tuned for intelligent life. They believed intelligence itself needed careful stewardship.",
+    "visual": "cosmic imagery, name reveal animation",
+    "approx_duration_sec": 10
+  },
+  {
+    "id": "s05",
+    "text": "In May of twenty twenty-one, just months after founding, Anthropic raised one hundred and twenty-four million dollars from heavyweights like Skype co-founder Jaan Tallinn, Facebook co-founder Dustin Moskovitz, and former Google CEO Eric Schmidt.",
+    "visual": "investor logos cascading in",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s06",
+    "text": "The team went to work in relative stealth, building something they called Claude, named after Claude Shannon, the father of information theory. But they would not release it for nearly two years.",
+    "visual": "Claude Shannon photo, Claude name reveal",
+    "approx_duration_sec": 10
+  },
+  {
+    "id": "s07",
+    "text": "In twenty twenty-two, Anthropic raised a five hundred and eighty million dollar Series B round. The lead investor? FTX, the crypto exchange run by Sam Bankman-Fried. Within months, FTX would collapse in one of the biggest frauds in history.",
+    "visual": "FTX logo crumbling into pieces",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s08",
+    "text": "Anthropic had to buy back FTX's stake to free itself from the association. It was a near-death experience for the young company, but they survived and kept building.",
+    "visual": "company rising from wreckage animation",
+    "approx_duration_sec": 9
+  },
+  {
+    "id": "s09",
+    "text": "While they built, Anthropic pioneered a groundbreaking approach to AI safety called Constitutional AI. Instead of having humans rate millions of responses, they gave the model a written constitution, a set of principles to judge itself against.",
+    "visual": "document with constitution text, quill animation",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s10",
+    "text": "The model would generate a response, then critique its own output against the constitution, and revise it to be more helpful, honest, and harmless. This self-improvement loop reduced the need for human reviewers and made alignment scalable and transparent.",
+    "visual": "AI self-critique loop diagram with arrows",
+    "approx_duration_sec": 13
+  },
+  {
+    "id": "s11",
+    "text": "Anthropic drew inspiration from sources like the UN Declaration of Human Rights and Apple's Terms of Service. It was the first time an AI company published the actual principles guiding their model's behavior.",
+    "visual": "source documents shown with highlight",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s12",
+    "text": "In March of twenty twenty-three, Claude one finally launched. It had a one hundred thousand token context window and was built around the core H-H-H principles: helpful, harmless, and honest.",
+    "visual": "Claude 1 launch screen, feature badges",
+    "approx_duration_sec": 10
+  },
+  {
+    "id": "s13",
+    "text": "That same year, Amazon invested one point three billion dollars into Anthropic, with Google committing up to two billion. Big Tech was placing their bets on the safety-first AI company.",
+    "visual": "Amazon and Google logos with dollar signs",
+    "approx_duration_sec": 9
+  },
+  {
+    "id": "s14",
+    "text": "Claude two launched in July of twenty twenty-three, doubling down on reasoning and coding. Then Claude two point one brought tool use support and significantly reduced hallucinations.",
+    "visual": "Claude 2 launch, feature comparison",
+    "approx_duration_sec": 10
+  },
+  {
+    "id": "s15",
+    "text": "But the real breakthrough came on March fourth, twenty twenty-four. Anthropic unveiled the Claude three family: three models in one launch. Haiku for speed, Sonnet for balance, and Opus for maximum power.",
+    "visual": "three tier cards appearing with spring animation",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s16",
+    "text": "Claude three Opus outperformed GPT-4 on nearly every benchmark: undergraduate level knowledge, graduate level reasoning, math, coding. It could even analyze images.",
+    "visual": "benchmark bar chart with Opus leading",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s17",
+    "text": "The three-tier system was genius. Customers could pick the right model for each job: Haiku for real-time chat, Sonnet for daily work, and Opus for the toughest problems. It democratized access to frontier AI.",
+    "visual": "tier diagram with use case labels",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s18",
+    "text": "Just three months later, in June twenty twenty-four, Anthropic shocked the industry again. Claude three point five Sonnet delivered performance matching the much more expensive Opus, at a fraction of the cost.",
+    "visual": "Sonnet matching Opus performance chart",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s19",
+    "text": "It became widely regarded as the best coding model available. Developers flocked to it. By end of twenty twenty-four, Anthropic's annualized revenue had grown from eighty-seven million dollars in January to over one billion.",
+    "visual": "revenue growth graph soaring upward",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s20",
+    "text": "Amazon deepened its commitment, bringing their total investment to eight billion dollars. Anthropic was no longer a startup. It was a powerhouse.",
+    "visual": "Amazon logo with $8B badge",
+    "approx_duration_sec": 8
+  },
+  {
+    "id": "s21",
+    "text": "February twenty twenty-five brought Claude three point seven Sonnet, introducing extended thinking. For the first time, a Claude model could explicitly show its chain-of-thought reasoning before answering.",
+    "visual": "brain/thinking visualization with visible chain",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s22",
+    "text": "Then in May twenty twenty-five, the Claude four generation launched. Claude Opus four and Sonnet four brought massive gains in coding, with SWE-bench scores that left competitors scrambling. They also launched Claude Code, an AI coding agent that would become a revenue juggernaut.",
+    "visual": "Claude 4 dual launch, Claude Code badge",
+    "approx_duration_sec": 14
+  },
+  {
+    "id": "s23",
+    "text": "By September twenty twenty-five, Anthropic had raised thirteen billion dollars in Series F funding at a one hundred and eighty-three billion dollar valuation. The company hit a fourteen billion dollar revenue run rate by February twenty twenty-six.",
+    "visual": "funding round milestones infographic",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s24",
+    "text": "Claude Opus four point five in November twenty twenty-five set new standards across coding, agents, and computer use. Then just three months later, Opus four point six arrived with a one million token context window in beta. It could analyze entire codebases and hundred-page legal documents in one go.",
+    "visual": "context window size comparison animation",
+    "approx_duration_sec": 14
+  },
+  {
+    "id": "s25",
+    "text": "February twenty twenty-six was a landmark month. Anthropic raised thirty billion dollars in Series G funding at a three hundred and eighty billion dollar valuation. It was the second largest private fundraising round in history.",
+    "visual": "money flowing into company animation",
+    "approx_duration_sec": 10
+  },
+  {
+    "id": "s26",
+    "text": "By April twenty twenty-six, annualized revenue had exploded to thirty billion dollars. Eighty times growth in just over a year. Anthropic now served over three hundred thousand business customers. Eight of the Fortune ten companies were using Claude.",
+    "visual": "revenue explosion chart, customer logos",
+    "approx_duration_sec": 13
+  },
+  {
+    "id": "s27",
+    "text": "Claude Opus four point seven launched in April twenty twenty-six with improved coding, vision, and complex multi-step reasoning. Claude Design was also released, letting users create prototypes just by describing them.",
+    "visual": "Claude Design demo interface",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s28",
+    "text": "Opus four point eight followed in May, introducing effort control, a dial that scales how deeply the model thinks. It also brought Dynamic Workflows, where Claude can spawn up to one thousand parallel sub-agents to tackle massive tasks.",
+    "visual": "effort dial UI, branching agent tree diagram",
+    "approx_duration_sec": 13
+  },
+  {
+    "id": "s29",
+    "text": "Then came June ninth, twenty twenty-six, the launch of Claude Fable five. This was Anthropic's first Mythos-class model, a tier above Opus. It scored over eighty percent on SWE-bench Pro, eleven points ahead of the next best model.",
+    "visual": "Fable 5 crown, benchmark comparison",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s30",
+    "text": "Stripe used Fable five to migrate a fifty-million-line Ruby codebase in a single day. A task that previously took a team over two months. The model could play Pokemon using only vision, and rebuild web apps from screenshots.",
+    "visual": "Stripe logo, code migration visualization",
+    "approx_duration_sec": 13
+  },
+  {
+    "id": "s31",
+    "text": "Fable five came with safeguards. Requests involving cybersecurity or biology were routed to the safer Opus four point eight. A restricted version called Mythos five was given to cyber defenders with safety filters lifted.",
+    "visual": "safety shield routing diagram",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s32",
+    "text": "But just three days later, on June twelfth, the US government issued an export control directive citing national security concerns over a potential jailbreak. Anthropic was forced to disable Fable five and Mythos five for all customers worldwide. It was the first time a government had pulled an AI model from the market.",
+    "visual": "government document, shutdown notice animation",
+    "approx_duration_sec": 15
+  },
+  {
+    "id": "s33",
+    "text": "Anthropic publicly disagreed with the directive, arguing the alleged jailbreak was narrow and non-universal. The company is working to restore access, but for now, Fable five remains offline. Opus four point eight, Sonnet four point six, and all other models continue operating normally.",
+    "visual": "Anthropic statement text, model status indicators",
+    "approx_duration_sec": 14
+  },
+  {
+    "id": "s34",
+    "text": "On June first, twenty twenty-six, Anthropic filed confidentially for an IPO at a nine hundred and sixty-five billion dollar valuation, after closing a sixty-five billion dollar Series H round. From zero to nearly one trillion in five years.",
+    "visual": "IPO document, valuation milestone chart",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s35",
+    "text": "Anthropic now has over twenty-five hundred employees, up from about two hundred and forty just three years ago. They have raised over one hundred billion dollars in total funding, making them one of the best-funded private companies in history. Their annualized revenue has hit forty-seven billion dollars.",
+    "visual": "employee growth chart, funding total graphic",
+    "approx_duration_sec": 13
+  },
+  {
+    "id": "s36",
+    "text": "In Q2 twenty twenty-six, Anthropic expects to post its first ever operating profit of over five hundred million dollars on nearly eleven billion dollars in quarterly revenue. That is two years ahead of their internal targets.",
+    "visual": "profit milestone graphic, quarterly revenue",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s37",
+    "text": "What makes Anthropic different is their philosophy. They are a public benefit corporation, legally required to consider the public interest. They publish their constitution. They prioritize interpretability, trying to understand how these models actually think.",
+    "visual": "philosophy pillars with icons",
+    "approx_duration_sec": 12
+  },
+  {
+    "id": "s38",
+    "text": "But challenges remain. Critics point to the concentration of power. Anthropic is backed by Amazon, Google, Microsoft, and Nvidia. When the same models run the world's infrastructure, who holds them accountable?",
+    "visual": "power concentration web graphic",
+    "approx_duration_sec": 11
+  },
+  {
+    "id": "s39",
+    "text": "Yet there is no denying the impact. From a splinter group of nine people with a dream, to a near trillion dollar company building what may be the most important technology of our lifetime. Dario and Daniela Amodei took a bet that safety and scale could go hand in hand. So far, they are winning.",
+    "visual": "journey from 9 people to global scale",
+    "approx_duration_sec": 15
+  },
+  {
+    "id": "s40",
+    "text": "The story of Anthropic is still being written. With Fable five's suspension, the upcoming IPO, and the race against OpenAI, one thing is clear: the future of intelligence is being shaped right now, and it might just be in safe hands.",
+    "visual": "closing shot with logo, tagline, and call to action",
+    "approx_duration_sec": 12
+  }
+]

@@ -1,0 +1,63 @@
+name: Render Video
+
+on:
+  workflow_dispatch:
+    inputs:
+      use_actual_timing:
+        description: "Use actual audio durations from timings.json"
+        type: boolean
+        default: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Download audio files
+        uses: actions/download-artifact@v4
+        with:
+          name: tts-audio
+          path: video/public/audio/
+        continue-on-error: true
+
+      - name: Download timing config
+        uses: actions/download-artifact@v4
+        with:
+          name: timing-config
+          path: video/public/
+        continue-on-error: true
+
+      - name: Check downloaded assets
+        run: |
+          echo "=== Audio files ==="
+          ls -la video/public/audio/ 2>/dev/null || echo "No audio files found"
+          echo "=== Timing config ==="
+          cat video/public/timings.json 2>/dev/null || echo "No timing config found"
+
+      - name: Install dependencies
+        working-directory: ./video
+        run: npm install
+
+      - name: Ensure Remotion browser
+        run: npx remotion browser ensure
+
+      - name: Render video
+        working-directory: ./video
+        run: |
+          mkdir -p out
+          npx remotion render src/Root.tsx Main out/anthropic-story.mp4 \
+            --log=verbose \
+            --concurrency=4
+
+      - name: Upload final video
+        uses: actions/upload-artifact@v4
+        with:
+          name: anthropic-story-video
+          path: video/out/anthropic-story.mp4
+          retention-days: 90
